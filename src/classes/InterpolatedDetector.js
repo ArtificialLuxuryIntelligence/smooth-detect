@@ -18,6 +18,7 @@ export default class InterpolatedDetectorMULTI {
   }
 
   async load() {
+    // model specific load functions? for native config
     let promises = [];
     Object.values(this.detectors).forEach((d) => {
       // Load the models
