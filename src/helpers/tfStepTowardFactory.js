@@ -1,10 +1,9 @@
-import { stepToward1D, stepToward2D } from './geometry';
+import { stepToward1D, stepToward2D, stepToward3D } from './geometry';
 import mapDeep from './mapDeep';
 
 // returns a stepToward function
 //optional  params for setting the individual function or step value for keys of prediction (i.e. landmarks, normalized_circle etc.)
 export default function tfStepTowardFactory(mapperArgs, stepSize = 0.1) {
-  // const stepSize = stepSize;
   return (prevPredictions, currentPredictions) => {
     let int_vectors;
     let int_predictions;
@@ -60,6 +59,7 @@ export default function tfStepTowardFactory(mapperArgs, stepSize = 0.1) {
     if (Array.isArray(val1)) {
       if (Array.isArray(val1[0])) {
         // array of arrays
+        // console.log(key, 'array of arrays');
         return val1.map((v1, idx) =>
           stepMapper(mapperArgs, key, v1, val2[idx])
         );
@@ -75,7 +75,7 @@ export default function tfStepTowardFactory(mapperArgs, stepSize = 0.1) {
         if (stepperFunction) {
           return stepperFunction(val1, val2, step);
         } else {
-          return stepToward2D(val1, val2, step); // TO DO 3D VERSION or just make a generic stepToward fn for all dims..
+          return stepToward3D(val1, val2, step);
         }
       }
     }
@@ -86,6 +86,8 @@ export default function tfStepTowardFactory(mapperArgs, stepSize = 0.1) {
         return stepToward1D(val1, val2, step);
       }
     }
+    // console.log(key);
+
     return val2; // if none of the above are satisfied
   }
 }

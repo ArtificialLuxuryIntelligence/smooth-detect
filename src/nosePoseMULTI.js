@@ -5,7 +5,6 @@ import '@tensorflow/tfjs-backend-cpu';
 // not using tf.setBackend ..
 
 import InterpolatedDetector from './classes/InterpolatedDetector';
-import VectorDetector from './classes/Detectors/__VectorDetector';
 import NVDBlaze from './classes/Detectors/VDBlaze';
 import NVDMesh from './classes/Detectors/VDMesh';
 import IVDMesh from './classes/Detectors/VDIrisMesh';
@@ -49,6 +48,8 @@ function getDetector(name, config) {
   // add in configs that haven't been specified
   let configMerged = mergeDeep({}, defaultsMULTI[name], config);
 
+  console.log(configMerged);
+
   switch (name) {
     case 'iris':
       detector = new IVDMesh(configMerged.detector);
@@ -63,6 +64,7 @@ function getDetector(name, config) {
       detector = new VDHandpose(configMerged.detector);
       break;
     default:
+      // throw error?
       //none
       // detector = new NVDBlaze(configMerged.detector);
 

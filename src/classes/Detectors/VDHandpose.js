@@ -22,9 +22,7 @@ export default class VDHandpose extends VectorDetector {
 
   async detect(video) {
     // Get predictions from model
-    const predictions = await this.model.estimateHands(
-      document.querySelector('video')
-    );
+    const predictions = await this.model.estimateHands(video);
 
     if (!predictions.length) {
       return false;
@@ -62,7 +60,7 @@ export default class VDHandpose extends VectorDetector {
     // Return info
 
     // return int_vectors = vectors for first loop
-    return { int_vectors: vectors, vectors, data, predictions: predictions[0] }; // not 'raw' data (predictions also included) data is kinda a shit dupe of this? (but useful for us here/.)
+    return { vectors, data, predictions: predictions[0] }; // data not 'raw' data (predictions also included) data is kinda a shit dupe of this? (but useful for us here/.)
   }
 
   // Extract useful data from raw data

@@ -60,6 +60,21 @@ function angleCoordinatesXY(c1, c2) {
   return Math.PI - a;
 }
 
+function stepToward3D(prevPos, actualPos, stepSize = 0.1) {
+  let x, y, z;
+  let [x1, y1, z1] = [...prevPos];
+  let [x2, y2, z2] = [...actualPos];
+
+  let d_x = x2 - x1;
+  let d_y = y2 - y1;
+  let d_z = z2 - z1;
+
+  x = x1 + d_x * stepSize;
+  y = y1 + d_y * stepSize;
+  z = z1 + d_z * stepSize;
+  return [x, y, z];
+}
+
 function stepToward2D(prevPos, actualPos, stepSize = 0.1) {
   let x, y;
   let [x1, y1] = [...prevPos];
@@ -82,6 +97,7 @@ function stepToward1D(prevVal, actualVal, stepSize = 0.1) {
 export {
   stepToward1D,
   stepToward2D,
+  stepToward3D,
   stepToward,
   stepTowardLinear,
   averageCoordinate,

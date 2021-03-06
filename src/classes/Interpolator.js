@@ -39,6 +39,7 @@ export default class Interpolator {
          note: if the slowPromise resolves much more quickly than the timeout(fps) then
          there there is a delay and what is returned can be 'stale'
          i.e. here the detection will be from too many frames ago and be delayed
+         difficult to solve as we don't know how long slow promise will take
          */
         //
         const [p1, p2] = [this.slowPromise(val), this.__timeoutPromise()];

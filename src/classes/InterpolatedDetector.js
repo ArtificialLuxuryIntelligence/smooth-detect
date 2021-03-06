@@ -42,7 +42,7 @@ export default class InterpolatedDetectorMULTI {
       );
     });
     let p = await Promise.all(promises);
-    console.log('all loaded');
+    console.log('Models loaded');
     this.loaded = true;
   }
 

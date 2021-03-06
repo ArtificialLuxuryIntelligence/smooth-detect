@@ -15,7 +15,7 @@ const defaultsMULTI = {
   blaze: {
     detector: {
       // central_bounding: { x: [-20, 20], y: [-20, 15] },
-      outer_bounding: { x: [-50, 50], y: [-35, 15] },
+      outer_bounding: { x: [-50, 50], y: [-35, 15] }, // rename to nose bounding?
     },
     interpolator: {
       predictions: true,
