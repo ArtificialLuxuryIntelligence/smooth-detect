@@ -48,8 +48,6 @@ function getDetector(name, config) {
   // add in configs that haven't been specified
   let configMerged = mergeDeep({}, defaultsMULTI[name], config);
 
-  console.log(configMerged);
-
   switch (name) {
     case 'iris':
       detector = new IVDMesh(configMerged.detector);

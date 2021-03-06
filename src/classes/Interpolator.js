@@ -23,7 +23,7 @@ export default class Interpolator {
     if (!this.fast) {
       this.fast = this.slow;
     } else {
-      this.fast = this.stepToward(this.fast, this.slow); // current val, target val, 'sensitiviy' (some const)
+      this.fast = this.stepToward(this.fast, this.slow); // current val, target val, 
     }
   }
   async __updateSlow(val) {

@@ -3,11 +3,16 @@ import mapDeep from './mapDeep';
 
 // returns a stepToward function
 //optional  params for setting the individual function or step value for keys of prediction (i.e. landmarks, normalized_circle etc.)
-export default function tfStepTowardFactory(mapperArgs, stepSize = 0.1) {
+export default function tfStepTowardFactory(
+  mapperArgs,
+  stepSize = 0.1,
+  options = {}
+) {
+  const { predictions: mapPredictions, vectors: mapVectors } = options;
   return (prevPredictions, currentPredictions) => {
     let int_vectors;
     let int_predictions;
-    if (prevPredictions.int_vectors) {
+    if (prevPredictions.int_vectors && mapPredictions) {
       int_vectors = mapDeep(
         stepMapper,
         mapperArgs,
@@ -18,7 +23,7 @@ export default function tfStepTowardFactory(mapperArgs, stepSize = 0.1) {
       // handle first loop where no int values exist
       int_vectors = currentPredictions.vectors;
     }
-    if (prevPredictions.int_predictions) {
+    if (prevPredictions.int_predictions && mapPredictions) {
       int_predictions = mapDeep(
         stepMapper,
         mapperArgs,

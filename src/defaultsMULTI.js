@@ -45,6 +45,8 @@ const defaultsMULTI = {
       eye_bounding: [20, 32],
     },
     interpolator: {
+      predictions: true, // interpolate predictions?
+      vectors: true, // interpolate vectors?
       fps: 0, // zero is gives a max fps
       stepDefault: 0.07,
       mapperArgs: {
@@ -68,6 +70,8 @@ const defaultsMULTI = {
       pinch4_bounding: [50, 150],
     },
     interpolator: {
+      predictions: true,
+      vectors: true,
       fps: 0, // zero is max
       stepDefault: 0.25,
       mapperArgs: {

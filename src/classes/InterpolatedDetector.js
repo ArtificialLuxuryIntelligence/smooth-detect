@@ -30,10 +30,16 @@ export default class InterpolatedDetectorMULTI {
       const {
         stepperFactory,
         mapperArgs,
+        predictions,
+        vectors,
         fps,
         stepDefault,
       } = d.config.interpolator;
-      const interpolatorFunction = stepperFactory(mapperArgs, stepDefault);
+
+      const interpolatorFunction = stepperFactory(mapperArgs, stepDefault, {
+        predictions,
+        vectors,
+      });
 
       d.interpolator = new Interpolator(
         (video) => d.detector.detect(video), //slow fn to interpolate between return vals
@@ -72,8 +78,7 @@ export default class InterpolatedDetectorMULTI {
       detections[n] = this.detectors[n].interpolator.interpolate(video);
     });
 
-    // let configs = Object.values({ ...this.detectors }).map((v) => v.config);
-    let configs = {};
+    let configs = {}; // useful to include the configs
     Object.keys(this.detectors).forEach((n) => {
       configs[n] = this.detectors[n].config;
     });
@@ -85,7 +90,7 @@ export default class InterpolatedDetectorMULTI {
   startDetection(video, loopers = []) {
     const looper = () => {
       let d = this.detect(video);
-      //loop any functions hooking into the animation loop
+      //loop any functions hooking into this animation loop
       if (loopers.length) {
         loopers.forEach((fn) => fn(d));
       }
@@ -97,12 +102,13 @@ export default class InterpolatedDetectorMULTI {
   stopDetection() {
     cancelAnimationFrame(this.animationFrameId);
   }
+
   __configureDetector(config, detector = {}) {
-    Object.assign(detector.config.detector, config);
-    detector.detector.configure(config);
+    Object.assign(detector.config.detector, config); //change config in this class (which contains full config object from initialization)
+    detector.detector.configure(config); // change config in detector instance
   }
 
-  // interpolator doesn't (yet?) have config option so need to instantiate new one
+  // interpolator doesn'thave config option so need to instantiate new one
   __configureInterpolator(config, detector = {}) {
     mergeDeep(detector.config.interpolator, config);
 
@@ -112,7 +118,10 @@ export default class InterpolatedDetectorMULTI {
       stepDefault,
       fps,
     } = detector.config.interpolator;
-    const interpolatorFunction = stepperFactory(mapperArgs, stepDefault);
+    const interpolatorFunction = stepperFactory(mapperArgs, stepDefault, {
+      predictions,
+      vectors,
+    });
 
     detector.interpolator = new Interpolator(
       (video) => detector.detector.detect(video), //slow fn to interpolate between return vals

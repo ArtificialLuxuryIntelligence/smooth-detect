@@ -10,7 +10,6 @@ export default class VectorDetector {
 
   configure(config) {
     Object.assign(this.config, config);
-    //
   }
 
   // TODO: move this to face classes (or a shared class for all face classes? - which blaze/mesh inherit from)
