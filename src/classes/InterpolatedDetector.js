@@ -104,7 +104,7 @@ export default class InterpolatedDetectorMULTI {
   }
 
   __configureDetector(config, detector = {}) {
-    Object.assign(detector.config.detector, config); //change config in this class (which contains full config object from initialization)
+    mergeDeep(detector.config.detector, config); //change config in this class (which contains full config object from initialization)
     detector.detector.configure(config); // change config in detector instance
   }
 
