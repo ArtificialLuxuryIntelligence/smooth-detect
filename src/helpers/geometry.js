@@ -90,7 +90,6 @@ function stepToward2D(prevPos, actualPos, stepSize = 0.1) {
 
 function stepToward1D(prevVal, actualVal, stepSize = 0.1) {
   let d_x = actualVal - prevVal;
-
   return prevVal + d_x * stepSize;
 }
 
