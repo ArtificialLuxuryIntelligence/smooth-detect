@@ -23,7 +23,7 @@ export default class Interpolator {
     if (!this.fast) {
       this.fast = this.slow;
     } else {
-      this.fast = this.stepToward(this.fast, this.slow); // current val, target val, 
+      this.fast = this.stepToward(this.fast, this.slow); // current val, target val,
     }
   }
   async __updateSlow(val) {
@@ -40,11 +40,21 @@ export default class Interpolator {
          there there is a delay and what is returned can be 'stale'
          i.e. here the detection will be from too many frames ago and be delayed
          difficult to solve as we don't know how long slow promise will take
+
+         // idea: set a minimum fps which will wait that long THEN call the slow promise
          */
         //
-        const [p1, p2] = [this.slowPromise(val), this.__timeoutPromise()];
-        let p = await Promise.all([p1, p2]);
-        v = p[0];
+
+        // // result lags behind
+        // const [p1, p2] = [this.slowPromise(val), this.__timeoutPromise()];
+        // let p = await Promise.all([p1, p2]);
+        // v = p[0];
+
+        //solution (min fps)
+        await this.__timeoutPromise();
+        let v = await this.slowPromise(val);
+        // ------------
+
         this.resolved = true;
         v && (this.slow = v);
       } else {
