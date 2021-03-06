@@ -115,8 +115,10 @@ export default class InterpolatedDetectorMULTI {
     const {
       stepperFactory,
       mapperArgs,
-      stepDefault,
+      predictions,
+      vectors,
       fps,
+      stepDefault,
     } = detector.config.interpolator;
     const interpolatorFunction = stepperFactory(mapperArgs, stepDefault, {
       predictions,
