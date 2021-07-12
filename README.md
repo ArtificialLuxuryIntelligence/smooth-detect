@@ -16,7 +16,7 @@ Current supported models:
 
 ## Usage
 
-- npm install smooth-detector
+- npm install smooth-detector [! not yet released !]
 
 ```
 import smoothDetector from 'smooth-detect';
